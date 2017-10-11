@@ -12,7 +12,12 @@ class UserCell: DatasourceCell{
     
     override var datasourceItem: Any?{
         didSet{
-            //nameLabel.text = datasourceItem as? String
+            guard let user = datasourceItem as? User else {return}
+            
+            nameLabel.text = user.name
+            username.text = user.username
+            bioTextView.text = user.bioText
+            profileImageView.image = user.profileImage
         }
     }
     
@@ -50,7 +55,7 @@ class UserCell: DatasourceCell{
     
         let tv = UITextView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = .white
+        tv.backgroundColor = .clear
         tv.isEditable = false
         tv.text = "iPhone, iPad, iOS Programming Community. Join us to learn Swift, Objective-C and build iOS apps!"
         tv.font = UIFont.systemFont(ofSize: 15)
@@ -74,6 +79,8 @@ class UserCell: DatasourceCell{
     
     override func setupViews() {
         super.setupViews()
+        separatorLineView.isHidden = false
+        separatorLineView.backgroundColor = UIColor(white: 0, alpha: 0.2)
         self.backgroundColor = .white
         self.addSubview(nameLabel)
         self.addSubview(profileImageView)
